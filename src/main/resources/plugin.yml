@@ -1,0 +1,12 @@
+name: Pathfinding
+version: '${project.version}'
+main: me.gxb.pathfinding.Main
+authors: [ GXB ]
+description: pathfinding
+commands:
+  ph:
+    description: This is a demo command.
+    usage: /<command>
+    permission: <plugin name>.ph
+    permission-message: You don't have <permission>
+
