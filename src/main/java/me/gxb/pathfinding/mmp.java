@@ -3,6 +3,8 @@ package me.gxb.pathfinding;
 import com.comphenix.protocol.PacketType;
 import com.comphenix.protocol.ProtocolLibrary;
 import com.comphenix.protocol.events.PacketContainer;
+import com.comphenix.protocol.wrappers.BlockPosition;
+import com.comphenix.protocol.wrappers.WrappedBlockData;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
@@ -79,9 +81,21 @@ public class mmp {
     }
 
     //建筑方块
-    public static void setBolck(ArrayList<Integer> start, Material Material, World world) {
-        Block block = world.getBlockAt(start.get(0), start.get(1), start.get(2));
-        block.setType(Material);
+    public static void setBolck(ArrayList<Integer> start, Material Material, CommandSender sender) {
+        Player player = (Player) sender;
+        PacketContainer packet = new PacketContainer(PacketType.Play.Server.BLOCK_CHANGE);// 示例一个PacketContainer
+        packet.getModifier().writeDefaults(); // 写入默认值
+        BlockPosition blockPosition = new BlockPosition(start.get(0), start.get(1), start.get(2));
+        WrappedBlockData wrappedBlockData = WrappedBlockData.createData(Material);
+        packet.getBlockPositionModifier().write(0, blockPosition);
+        packet.getBlockData().write(0, wrappedBlockData);
+
+
+        try {
+            ProtocolLibrary.getProtocolManager().sendServerPacket(player, packet);// 发送数据包
+        } catch (InvocationTargetException e) {
+            e.printStackTrace();
+        }
 
 
     }

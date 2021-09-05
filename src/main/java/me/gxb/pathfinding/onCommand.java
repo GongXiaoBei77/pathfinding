@@ -48,7 +48,7 @@ public class onCommand implements CommandExecutor {
                 if (start.getMinf() != null) {
                     Astart minf = start.getMinf();
                     while (minf != null) {
-                        mmp.setBolck(minf.getLoc(), Material.IRON_BLOCK, ((Player) sender).getWorld());
+                        mmp.setBolck(minf.getLoc(), Material.IRON_BLOCK, sender);
                         minf = minf.getF_node();
                     }
                     sender.sendMessage("路径建造完成");
