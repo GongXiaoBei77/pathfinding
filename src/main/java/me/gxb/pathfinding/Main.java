@@ -1,6 +1,7 @@
 package me.gxb.pathfinding;
 
 import org.bukkit.Bukkit;
+import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class Main extends JavaPlugin {
@@ -9,21 +10,28 @@ public class Main extends JavaPlugin {
         // Plugin startup logic
         registerCommand();
         registerLister();
-        System.out.println("坐标插件已加载");
+        getLogger().info("坐标插件已加载");
 
     }
 
     @Override
     public void onDisable() {
         Bukkit.getScheduler().cancelTasks(this);
+//        关闭线程
         // Plugin shutdown logic
     }
-//注册命令
+
+    //注册命令
     public void registerCommand() {
         Bukkit.getPluginCommand("ph").setExecutor(new startCoordinates(this));
     }
-    public void registerLister(){
-//        getServer().getPluginManager().registerEvents(new onlister(), this);
+
+    public void registerLister() {
+//        备用 注册监听器
+    }
+
+    public Plugin logger() {
+        return this;
     }
 }
 

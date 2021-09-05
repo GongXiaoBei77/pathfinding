@@ -12,11 +12,6 @@ import java.util.HashSet;
 public class mmp {
 
 
-    public mmp() {
-    }
-
-    //    测试功能 建造可以
-
     //  判断是否可以通行
     public static boolean isBlock(ArrayList<Integer> start, World world) {
         boolean Empty_up = false;
@@ -71,7 +66,7 @@ public class mmp {
         for (int i = 0; i < start.size(); i += 2) {
             ArrayList<Integer> copyList = new ArrayList<>(start);
             copyList.set(i, start.get(i) + 1);
-            if (mmp.isBlock(copyList,world)) {
+            if (mmp.isBlock(copyList, world)) {
                 trueList.add(copyList);
             }
             Alllist.add(copyList);
