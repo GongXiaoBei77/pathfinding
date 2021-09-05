@@ -1,15 +1,43 @@
 package me.gxb.pathfinding;
 
+import com.comphenix.protocol.PacketType;
+import com.comphenix.protocol.ProtocolLibrary;
+import com.comphenix.protocol.events.PacketContainer;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.block.Block;
+import org.bukkit.command.CommandSender;
+import org.bukkit.entity.EntityType;
+import org.bukkit.entity.Player;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.UUID;
 
 
 public class mmp {
+    public static void spawnAS(CommandSender sender, Integer entityID,Location loc){
+        Player player = (Player) sender;
+
+        PacketContainer packet = new PacketContainer(PacketType.Play.Server.SPAWN_ENTITY_LIVING);// 示例一个PacketContainer
+        packet.getModifier().writeDefaults(); // 写入默认值
+        packet.getIntegers().write(0, entityID); // 对integers的第0个写入实体ID，注意这里，实体ID不要重叠，否则会被覆盖
+        packet.getUUIDs().write(0, UUID.randomUUID()) ;// 对UUID的第0个写入UUID值，这里使用了随机生成UUID值
+        packet.getIntegers().write(1, (int) EntityType.ARMOR_STAND.getTypeId()) ;
+        packet.getDoubles().write(0, loc.getX()+0.5); // 对Double的第0个写入位置的X值，不写的话，你知道它在哪个角落躲着吗
+        packet.getDoubles().write(1, loc.getY()) ;// 对Double的第1个写入位置的Y值
+        packet.getDoubles().write(2, loc.getZ() +0.5); // 对Double的第2个写入位置的Z值，这些顺序参照格式表（自己回去看格式表，第三个出现的Double就是位置的Z值）
+
+        try {
+            ProtocolLibrary.getProtocolManager().sendServerPacket(player, packet) ;// 发送数据包
+        } catch (InvocationTargetException e) {
+            e.printStackTrace();
+        }
+    }
+
+
 
 
     //  判断是否可以通行
@@ -125,16 +153,4 @@ public class mmp {
 
     }
 
-    public static int getH(ArrayList<Integer> start, ArrayList<Integer> end, World world) {
-
-
-        Block startBlock = world.getBlockAt(start.get(0), start.get(1), start.get(2));
-
-        Block endBlock = world.getBlockAt(end.get(0), end.get(1), end.get(2));
-        Location startLocation = startBlock.getLocation();
-        Location endLocation = endBlock.getLocation();
-        int distance = (int) startLocation.distance(endLocation);
-        return distance;
-
-    }
 }

@@ -1,13 +1,17 @@
 package me.gxb.pathfinding;
 
+import com.comphenix.protocol.ProtocolLibrary;
+import com.comphenix.protocol.ProtocolManager;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class Main extends JavaPlugin {
+    private ProtocolManager protocolManager;
     @Override
     public void onEnable() {
         // Plugin startup logic
+        protocolManager = ProtocolLibrary.getProtocolManager();;
         registerCommand();
         registerLister();
         getLogger().info("坐标插件已加载");
@@ -23,7 +27,7 @@ public class Main extends JavaPlugin {
 
     //注册命令
     public void registerCommand() {
-        Bukkit.getPluginCommand("ph").setExecutor(new startCoordinates(this));
+        Bukkit.getPluginCommand("ph").setExecutor(new onCommand(this));
     }
 
     public void registerLister() {

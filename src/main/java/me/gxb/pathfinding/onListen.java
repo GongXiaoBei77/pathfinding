@@ -10,7 +10,7 @@ import org.bukkit.inventory.EquipmentSlot;
 public class onListen implements Listener {
     private static Location startLocation;
     private static Location endLocation;
-    private static boolean startCode ;
+    private static boolean startCode;
     private static boolean endCode;
 
     public static Location getStartLocation() {
@@ -31,27 +31,27 @@ public class onListen implements Listener {
 
     @EventHandler(ignoreCancelled = true)
     public void onPlayerInteract(PlayerInteractEvent event) {
-        if (startCode){
-            if (event.getHand() == EquipmentSlot.HAND) {
+        if (event.getHand() == EquipmentSlot.HAND) {
+            if (startCode) {
+
                 Block clickedBlock = event.getClickedBlock();
                 startLocation = clickedBlock.getLocation();
+                mmp.spawnAS(event.getPlayer(), 1, startLocation);
                 event.getPlayer().sendMessage("起点设置完成");
-                event.getPlayer().sendMessage("输入/ph end,设置终点");
+                event.getPlayer().sendMessage("输入/ph end设置终点 或 直接点击 ");
                 startCode = false;
-            }
-        }
-        if (endCode) {
-            if (event.getHand() == EquipmentSlot.HAND) {
+                endCode = true;
+
+            } else if (endCode) {
+
                 Block clickedBlock = event.getClickedBlock();
                 endLocation = clickedBlock.getLocation();
+                mmp.spawnAS(event.getPlayer(), 2, endLocation);
                 event.getPlayer().sendMessage("终点设置完成");
                 event.getPlayer().sendMessage("输入/ph find,开始计算");
                 endCode = false;
             }
         }
-
-
-
 
 
     }
