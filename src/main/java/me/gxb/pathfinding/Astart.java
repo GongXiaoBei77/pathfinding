@@ -1,7 +1,7 @@
 package me.gxb.pathfinding;
 
 import java.util.ArrayList;
-
+//它是一个专门用来存储节点的东西，记录当前节点和父节点
 public class Astart {
     private Astart F_node;
 

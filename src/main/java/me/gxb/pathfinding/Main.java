@@ -27,6 +27,8 @@ public class Main extends JavaPlugin {
     }
 
     public void registerLister() {
+
+        getServer().getPluginManager().registerEvents(new onListen(), this);
 //        备用 注册监听器
     }
 

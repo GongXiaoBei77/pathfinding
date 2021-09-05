@@ -22,11 +22,21 @@ public class startCoordinates implements CommandExecutor {
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 //        判断是否是玩家输入
         if (sender instanceof Player) {
-//            3个参数时，为计算模式
-            if (args.length == 3) {
+//            1个参数且为statr时，为起点方块设置
+            if (args.length == 1 && args[0].equals("start")) {
+                onListen.setStartCode(true);
+                sender.sendMessage("点击一个方块设为起点");
+
+            }
+            if (args.length == 1 && args[0].equals("end")) {
+                onListen.setEndCode(true);
+                sender.sendMessage("点击一个方块设为终点");
+
+            }
+            if (args.length == 1 && args[0].equals("find")) {
+
                 start = new start(sender, args);
                 start.runTaskAsynchronously(main);
-                main.getLogger().info("完成");
             }
 //            1个参数且参数是build时，是建造模式
             if (args.length == 1 && args[0].equals("build")) {
@@ -43,17 +53,17 @@ public class startCoordinates implements CommandExecutor {
             }
 //            1个参数且参数为stop时，停止计算（线程终止，防止输入错误等问题）
             if (args.length == 1 && args[0].equals("stop")) {
-                main.getLogger().info("cancel:" + start);
+                sender.sendMessage("停止计算！");
                 start.setStart_code(false);
                 start.cancel();
                 return true;
 
             }
-
+        return true;
         } else {
             sender.sendMessage("你必须是一名玩家");
         }
-        return true;
+        return false;
     }
 }
 

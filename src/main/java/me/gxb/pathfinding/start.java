@@ -31,19 +31,23 @@ public class start extends BukkitRunnable {
     @Override
     public void run() {
         minf = null;
-        Location location = ((Player) sender).getLocation();
+        Location endLocation = onListen.getEndLocation();
+        Location startLocation = onListen.getStartLocation();
         int x, y, z;
-        x = (int) location.getX();
-        y = (int) location.getY() - 1;
-        z = (int) location.getZ();
+        x = (int) endLocation.getX();
+        y = (int) endLocation.getY();
+        z = (int) endLocation.getZ();
         ArrayList start = new ArrayList<Integer>();
         start.add(x);
         start.add(y);
         start.add(z);
         int x_1, y_2, z_3;
-        x_1 = Integer.parseInt(args[0]);
-        y_2 = Integer.parseInt(args[1]);
-        z_3 = Integer.parseInt(args[2]);
+
+        x_1 = (int) startLocation.getX();
+        ;
+        y_2 = (int) startLocation.getY();
+        z_3 = (int) startLocation.getZ();
+        ;
         ArrayList end = new ArrayList<Integer>();
         end.add(x_1);
         end.add(y_2);
@@ -104,6 +108,7 @@ public class start extends BukkitRunnable {
                 if (minf.getLoc().equals(end)) {
 //                    当前的位置为终点
                     sender.sendMessage("找到路径");
+                    sender.sendMessage("输入/ph build，建造路径");
 
 
                     break;
