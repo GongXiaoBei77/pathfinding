@@ -3,7 +3,6 @@ package me.gxb.pathfinding;
 import org.bukkit.Location;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import org.bukkit.plugin.Plugin;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.ArrayList;
@@ -31,7 +30,6 @@ public class start extends BukkitRunnable {
 
     @Override
     public void run() {
-        Plugin main = new Main().logger();
         minf = null;
         Location location = ((Player) sender).getLocation();
         int x, y, z;
@@ -99,7 +97,7 @@ public class start extends BukkitRunnable {
 
             }
             if (num % 10 == 0) {
-                main.getLogger().info("已计算：" + num);
+                sender.sendMessage("已计算" + num + "次");
             }
 //                最小损失节点 minf
             if (minf.getLoc() != null) {
